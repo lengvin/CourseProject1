@@ -1,4 +1,5 @@
 import pandas as pd
+import datetime
 
 
 def read_excel_file(file_path):
@@ -36,3 +37,26 @@ def read_excel_file(file_path):
         result.append(result_dict)
 
     return result
+
+
+def get_time_period(time):
+    """
+    Создание периода времени по конечному значению
+    """
+    date_and_time = time.split(' ')
+    date_list = date_and_time[0].split('-')
+    time_list = date_and_time[1].split(':')
+    start_date = datetime.datetime(year=int(date_list[0]),
+                                   month=int(date_list[1]),
+                                   day=1,
+                                   hour=0,
+                                   minute=0,
+                                   second=0)
+    end_date = datetime.datetime(year=int(date_list[0]),
+                                 month=int(date_list[1]),
+                                 day=int(date_list[2]),
+                                 hour=int(time_list[0]),
+                                 minute=int(time_list[1]),
+                                 second=int(time_list[2]))
+
+    return start_date, end_date
