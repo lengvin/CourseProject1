@@ -39,11 +39,11 @@ def read_excel_file(file_path):
     return result
 
 
-def get_time_period(time):
+def get_time_period(date):
     """
     Создание периода времени по конечному значению
     """
-    date_and_time = time.split(' ')
+    date_and_time = date.split(' ')
     date_list = date_and_time[0].split('-')
     time_list = date_and_time[1].split(':')
     start_date = datetime.datetime(year=int(date_list[0]),
@@ -60,3 +60,27 @@ def get_time_period(time):
                                  second=int(time_list[2]))
 
     return start_date, end_date
+
+
+def get_operations_in_period(operations, date):
+    """
+    Выборка операций с начала месяца по указанную дату
+    """
+    result = []
+    start_date, end_date = date
+    for operation in operations:
+        date_list = operation['operation_date'].split(' ')[0].split('.')
+        operation_date = datetime.datetime(year=int(date_list[2]),
+                                           month=int(date_list[1]),
+                                           day=int(date_list[0]))
+        if not (start_date.year <= operation_date.year <= end_date.year):
+            continue
+        elif not (start_date.month <= operation_date.month <= end_date.month):
+            continue
+        elif not (start_date.day <= operation_date.day <= end_date.day):
+            continue
+        else:
+            result.append(operation)
+
+    return result
+
