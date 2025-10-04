@@ -90,12 +90,12 @@ def get_greetings_by_date(date):
     Определение приветствия по секущему времени
     """
     time = date.split(' ')[1].split(':')
-    current_time = datetime.datetime(year=0,
-                                     month=0,
-                                     day=0,
-                                     hour=time[0],
-                                     minute=time[1],
-                                     second=time[2])
+    current_time = datetime.datetime(year=1,
+                                     month=1,
+                                     day=1,
+                                     hour=int(time[0]),
+                                     minute=int(time[1]),
+                                     second=int(time[2]))
 
     if 4 <= current_time.hour <= 11:
         return 'Доброе утро'
@@ -105,4 +105,3 @@ def get_greetings_by_date(date):
         return 'Добрый вечер'
     else:
         return 'Доброй ночи'
-
