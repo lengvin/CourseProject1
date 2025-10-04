@@ -84,3 +84,25 @@ def get_operations_in_period(operations, date):
 
     return result
 
+
+def get_greetings_by_date(date):
+    """
+    Определение приветствия по секущему времени
+    """
+    time = date.split(' ')[1].split(':')
+    current_time = datetime.datetime(year=0,
+                                     month=0,
+                                     day=0,
+                                     hour=time[0],
+                                     minute=time[1],
+                                     second=time[2])
+
+    if 4 <= current_time.hour <= 11:
+        return 'Доброе утро'
+    elif 12 <= current_time.hour <= 15:
+        return 'Добрый день'
+    elif 16 <= current_time.hour <= 22:
+        return 'Добрый вечер'
+    else:
+        return 'Доброй ночи'
+
