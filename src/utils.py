@@ -105,3 +105,30 @@ def get_greetings_by_date(date):
         return 'Добрый вечер'
     else:
         return 'Доброй ночи'
+
+
+def get_cards_info(operations):
+    """
+    Получение информации о карте, её суммы трат за период времени и кэшбека
+    """
+    result = []
+    viewed_cards = []
+    for operation in operations:
+        if operation['card_number'] in viewed_cards:
+            continue
+
+        if bool(operation['card_number']):
+            viewed_cards.append(operation['card_number'])
+            card_number = operation['card_number'][1:]
+        else:
+            card_number = None
+            viewed_cards.append(card_number)
+        spends_sum = round(abs(sum(x['operation_amount'] for x in operations if x['card_number'] == operation['card_number'])))
+        cashback = round(spends_sum / 100, 2)
+
+        card = {'last_digits': card_number,
+                'total_spent': spends_sum,
+                'cashback': cashback}
+        result.append(card)
+
+    return result
