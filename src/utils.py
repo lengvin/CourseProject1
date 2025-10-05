@@ -1,5 +1,6 @@
 import pandas as pd
 import datetime
+from external_api import currency_conversion_in_rub
 
 
 def read_excel_file(file_path):
@@ -123,7 +124,8 @@ def get_cards_info(operations):
         else:
             card_number = None
             viewed_cards.append(card_number)
-        spends_sum = round(abs(sum(x['operation_amount'] for x in operations if x['card_number'] == operation['card_number'])))
+        spends = [currency_conversion_in_rub(x) for x in operations if x['card_number'] == operation['card_number']]
+        spends_sum = round(abs(sum(spends)))
         cashback = round(spends_sum / 100, 2)
 
         card = {'last_digits': card_number,
