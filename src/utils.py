@@ -82,7 +82,7 @@ def get_operations_in_period(operations, date):
     Выборка операций с начала месяца по указанную дату
     """
     result = []
-    start_date, end_date = date
+    start_date, end_date = get_time_period(date)
     for operation in operations:
         date_list = operation['operation_date'].split(' ')[0].split('.')
         operation_date = datetime.datetime(year=int(date_list[2]),
