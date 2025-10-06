@@ -10,26 +10,7 @@ share_api_key = os.getenv("SHARE_API_KEY")
 currency_headers = {"apikey": f"{currency_api_key}"}
 
 
-def currency_conversion_in_rub(operation):
-    """
-    Конвертация валюты в рубли
-    """
-    currency = operation['operation_currency']
-    amount = operation['operation_amount']
-
-    if currency == "RUB":
-        return amount
-    else:
-        url = f"https://api.apilayer.com/exchangerates_data/convert?to=RUB&from={currency}&amount={amount}"
-
-        response = requests.get(url, headers=currency_headers)
-        response_data = response.json()
-        result = response_data["result"]
-
-        return result
-
-
-def get_currency_rate(user_settings):
+def get_user_currency_rate(user_settings):
     """
     Вывод курсов заданных валют
     """
