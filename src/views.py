@@ -4,7 +4,7 @@ import external_api
 
 def home_json_answer(date):
     all_operations = utils.read_excel_file('../data/operations.xlsx')
-    user_settings = utils.read_json_file('../data/user_settings.json')
+    user_settings = utils.read_json_file('../user_settings.json')
     operations = utils.get_operations_in_period(all_operations, date)
     cards = utils.get_cards_info(operations)
 
