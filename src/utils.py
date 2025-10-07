@@ -107,6 +107,8 @@ def get_operations_in_period(operations, date, period):
         if not (bool(start_date)):
             start_date = int(bool(start_date))
         for operation in operations:
+            if not bool(operation['payment_date']):
+                continue
             operation_date = datetime.datetime.strptime(operation['payment_date'], '%d.%m.%Y')
             if not (start_date.year <= operation_date.year <= end_date.year):
                 continue
