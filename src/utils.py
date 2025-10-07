@@ -184,10 +184,13 @@ def get_cards_info(operations):
 
 
 def get_main_payments_categories(operations):
+    """
+    Получение семи категорий с наибольшими тратами
+    """
     result = []
 
     all_categories = [x['category'] for x in operations]
-    counted = Counter(all_categories).most_common(5)
+    counted = Counter(all_categories).most_common(7)
     categories = [x[0] for x in counted]
     for category in categories:
         amount = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
@@ -210,6 +213,9 @@ def get_main_payments_categories(operations):
 
 
 def get_translations_and_cash(operations):
+    """
+    Получение суммы переводов и наличных
+    """
     cash = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
                 'Наличные' and x['payment_amount'] < 0])
     translations = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
@@ -230,6 +236,9 @@ def get_translations_and_cash(operations):
 
 
 def get_income(operations):
+    """
+    Получение суммы прибыли по категориям
+    """
     total_amount = sum([x['payment_amount'] for x in operations if x['payment_amount'] > 0])
     descriptions = []
     result = {
