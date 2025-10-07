@@ -20,10 +20,10 @@ def time_periods():
 
     date_1 = f'{year_1}-{month_1}-{day_1} {hour_1}:{minutes_1}:{seconds_1}'
     date_2 = f'{year_2}-{month_2}-{day_2} {hour_2}:{minutes_2}:{seconds_2}'
-    result_1 = (datetime.datetime(year=year_1, month=month_1, day=1, hour=0, minute=0, second=0),
+    result_1 = (datetime.datetime(year=year_1, month=month_1, day=1, hour=hour_1, minute=minutes_1, second=seconds_1),
                 datetime.datetime(year=year_1, month=month_1, day=day_1,
                                   hour=hour_1, minute=minutes_1, second=seconds_1))
-    result_2 = (datetime.datetime(year=year_2, month=month_2, day=1, hour=0, minute=0, second=0),
+    result_2 = (datetime.datetime(year=year_2, month=month_2, day=1, hour=hour_2, minute=minutes_2, second=seconds_2),
                 datetime.datetime(year=year_2, month=month_2, day=day_2,
                                   hour=hour_2, minute=minutes_2, second=seconds_2))
 
@@ -43,28 +43,32 @@ def operations_in_period():
     day_2 = random.randint(1, 28)
     date_1 = f'{year_1}-{month_1}-{max(day_1, day_2)} 0:0:0'
     date_2 = f'{year_2}-{month_2}-{max(day_1, day_2)} 0:0:0'
-    operations = [{'operation_date': f'{day_1}.{month_1}.{year_1} 12:49:53', 'payment_date': '01.01.2018',
+    operations = [{'operation_date': f'{day_1}.{month_1}.{year_1} 12:49:53',
+                   'payment_date': f'{day_1}.{month_1}.{year_1}',
                    'card_number': None, 'state': 'OK',
                    'operation_amount': -3000.0, 'operation_currency': 'RUB',
                    'payment_amount': -3000.0, 'payment_currency': 'RUB',
                    'cashback': None, 'category': 'Переводы',
                    'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
                    'investment_rounding': 0, 'amount_rounding': 3000.0},
-                  {'operation_date': f'{day_2}.{month_1}.{year_1} 12:49:53', 'payment_date': '01.01.2018 ',
+                  {'operation_date': f'{day_2}.{month_1}.{year_1} 12:49:53',
+                   'payment_date': f'{day_2}.{month_1}.{year_1}',
                    'card_number': None, 'state': 'OK',
                    'operation_amount': -3000.0, 'operation_currency': 'RUB',
                    'payment_amount': -3000.0, 'payment_currency': 'RUB',
                    'cashback': None, 'category': 'Переводы',
                    'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
                    'investment_rounding': 0, 'amount_rounding': 3000.0},
-                  {'operation_date': f'{day_1}.{month_2}.{year_2} 12:49:53', 'payment_date': '01.01.2018',
+                  {'operation_date': f'{day_1}.{month_2}.{year_2} 12:49:53',
+                   'payment_date': f'{day_1}.{month_2}.{year_2}',
                    'card_number': None, 'state': 'OK',
                    'operation_amount': -3000.0, 'operation_currency': 'RUB',
                    'payment_amount': -3000.0, 'payment_currency': 'RUB',
                    'cashback': None, 'category': 'Переводы',
                    'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
                    'investment_rounding': 0, 'amount_rounding': 3000.0},
-                  {'operation_date': f'{day_2}.{month_2}.{year_2} 12:49:53', 'payment_date': '01.01.2018',
+                  {'operation_date': f'{day_2}.{month_2}.{year_2} 12:49:53',
+                   'payment_date': f'{day_2}.{month_2}.{year_2}',
                    'card_number': None, 'state': 'OK',
                    'operation_amount': -3000.0, 'operation_currency': 'RUB',
                    'payment_amount': -3000.0, 'payment_currency': 'RUB',
