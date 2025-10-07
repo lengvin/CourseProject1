@@ -206,3 +206,23 @@ def get_main_payments_categories(operations):
 
     return result
 
+
+def get_translations_and_cash(operations):
+    cash = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
+                'Наличные' and x['payment_amount'] < 0])
+    translations = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
+                        'Переводы' and x['payment_amount'] < 0])
+
+    result = [
+        {
+            'category': 'Наличные',
+            'amount': int(round(cash))
+        },
+        {
+            'category': "Переводы",
+            'amount': int(round(translations))
+        }
+    ]
+
+    return result
+
