@@ -3,6 +3,9 @@ import external_api
 
 
 def home_json_answer(date):
+    """
+    Создание JSON ответа для страницы "главная"
+    """
     all_operations = utils.read_excel_file('../data/operations.xlsx')
     user_settings = utils.read_json_file('../user_settings.json')
     operations = utils.get_operations_in_period(all_operations, date, 'M')
@@ -30,6 +33,9 @@ def home_json_answer(date):
 
 
 def events_json_answer(date, period='M'):
+    """
+    Создание JSON ответа для страницы "события"
+    """
     all_operations = utils.read_excel_file('../data/operations.xlsx')
     user_settings = utils.read_json_file('../user_settings.json')
 
