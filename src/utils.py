@@ -226,3 +226,27 @@ def get_translations_and_cash(operations):
 
     return result
 
+
+def get_income(operations):
+    total_amount = sum([x['payment_amount'] for x in operations if x['payment_amount'] > 0])
+    descriptions = []
+    result = {
+        'total_amount': int(round(total_amount)),
+        'main': []
+    }
+
+    for operation in operations:
+        if operation['category'] in descriptions:
+            continue
+        if operation['payment_amount'] > 0:
+            category_sum = sum([x['payment_amount'] for x in operations if x['category'] ==
+                                operation['category'] and x['payment_amount'] > 0])
+            data = {
+                'category': operation['category'],
+                'amount': int(round(category_sum))
+            }
+            result['main'].append(data)
+            descriptions.append(operation['category'])
+    result['main'].sort(key=lambda x: x['amount'], reverse=True)
+
+    return result
