@@ -88,11 +88,6 @@ def greetings():
 
 
 @pytest.fixture
-def invalid_greetings():
-    pass
-
-
-@pytest.fixture
 def cards_info():
     operations = [{'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
                    'card_number': None, 'state': 'OK',
@@ -116,8 +111,3 @@ def cards_info():
               "cashback": 30.0}]
 
     return operations, cards
-
-
-@pytest.fixture
-def invalid_cards_info():
-    pass
