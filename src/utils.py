@@ -72,30 +72,22 @@ def read_json_file(file_path):
         return json_file
 
 
-def get_time_period(date):
+def get_time_period(date, period='M'):
     """
     Создание периода времени по конечному значению
     """
     try:
-        date_and_time = date.split(' ')
-        date_list = date_and_time[0].split('-')
-        time_list = date_and_time[1].split(':')
-        module_logger.info('Разделение заданной даты на дату и время')
-
-        start_date = datetime.datetime(year=int(date_list[0]),
-                                       month=int(date_list[1]),
-                                       day=1,
-                                       hour=0,
-                                       minute=0,
-                                       second=0)
+        end_date = datetime.datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
         module_logger.info('Создание начальной точки временного периода')
-
-        end_date = datetime.datetime(year=int(date_list[0]),
-                                     month=int(date_list[1]),
-                                     day=int(date_list[2]),
-                                     hour=int(time_list[0]),
-                                     minute=int(time_list[1]),
-                                     second=int(time_list[2]))
+        start_date = end_date
+        if period == 'M':
+            start_date = start_date.replace(day=1)
+        elif period == 'W':
+            start_date -= datetime.timedelta(days=7)
+        elif period == 'Y':
+            start_date = start_date.replace(year=end_date.year - 1)
+        elif period == 'ALL':
+            start_date = None
         module_logger.info('Создание конечной точки временного периода')
     except Exception as e:
         module_logger.error(f'Произошла ошибка: {e}')
@@ -103,19 +95,18 @@ def get_time_period(date):
         return start_date, end_date
 
 
-def get_operations_in_period(operations, date):
+def get_operations_in_period(operations, date, period):
     """
     Выборка операций с начала месяца по указанную дату
     """
     try:
         result = []
-        start_date, end_date = get_time_period(date)
+        start_date, end_date = get_time_period(date, period=period)
         module_logger.info('Начало выборки операций по дате')
+        if not (bool(start_date)):
+            start_date = int(bool(start_date))
         for operation in operations:
-            date_list = operation['operation_date'].split(' ')[0].split('.')
-            operation_date = datetime.datetime(year=int(date_list[2]),
-                                               month=int(date_list[1]),
-                                               day=int(date_list[0]))
+            operation_date = datetime.datetime.strptime(operation['payment_date'], '%d.%m.%Y')
             if not (start_date.year <= operation_date.year <= end_date.year):
                 continue
             elif not (start_date.month <= operation_date.month <= end_date.month):
