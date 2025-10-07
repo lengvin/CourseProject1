@@ -27,4 +27,3 @@ def home_json_answer(date):
               'stock_prices': stock_prices}
 
     return result
-
