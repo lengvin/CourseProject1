@@ -2,6 +2,7 @@ import pandas as pd
 import datetime
 import json
 import logging
+from collections import Counter
 
 
 logging.basicConfig(
@@ -178,3 +179,30 @@ def get_cards_info(operations):
         module_logger.error(f'Произошла ошибка: {e}')
     else:
         return result
+
+
+def get_main_payments_categories(operations):
+    result = []
+
+    all_categories = [x['category'] for x in operations]
+    counted = Counter(all_categories).most_common(5)
+    categories = [x[0] for x in counted]
+    for category in categories:
+        amount = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
+                      category and x['payment_amount'] < 0])
+        data = {
+            "category": category,
+            'amount': int(round(amount))
+        }
+        result.append(data)
+
+    other_amount = sum([abs(x['payment_amount']) for x in operations
+                        if not (x['category'] in categories) and x['payment_amount'] < 0])
+    other = {
+        'category': 'Остальное',
+        'amount': int(round(other_amount))
+    }
+    result.append(other)
+
+    return result
+
