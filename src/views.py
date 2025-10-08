@@ -1,13 +1,13 @@
-import external_api
-import utils
+from src import external_api
+from src import utils
 
 
 def home_json_answer(date):
     """
     Создание JSON ответа для страницы "главная"
     """
-    all_operations = utils.read_excel_file("../data/operations.xlsx")
-    user_settings = utils.read_json_file("../user_settings.json")
+    all_operations = utils.read_excel_file("data/operations.xlsx")
+    user_settings = utils.read_json_file("user_settings.json")
     operations = utils.get_operations_in_period(all_operations, date, "M")
     cards = utils.get_cards_info(operations)
 
@@ -40,8 +40,8 @@ def events_json_answer(date, period="M"):
     """
     Создание JSON ответа для страницы "события"
     """
-    all_operations = utils.read_excel_file("../data/operations.xlsx")
-    user_settings = utils.read_json_file("../user_settings.json")
+    all_operations = utils.read_excel_file("data/operations.xlsx")
+    user_settings = utils.read_json_file("user_settings.json")
 
     operations = utils.get_operations_in_period(all_operations, date, period=period)
     total_amount = sum([abs(x["payment_amount"]) for x in operations if x["payment_amount"] < 0])
