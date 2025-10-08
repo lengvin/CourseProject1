@@ -187,77 +187,93 @@ def get_main_payments_categories(operations):
     """
     Получение семи категорий с наибольшими тратами
     """
-    result = []
+    try:
+        result = []
 
-    all_categories = [x['category'] for x in operations]
-    counted = Counter(all_categories).most_common(7)
-    categories = [x[0] for x in counted]
-    for category in categories:
-        amount = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
-                      category and x['payment_amount'] < 0])
-        data = {
-            "category": category,
-            'amount': int(round(amount))
+        all_categories = [x['category'] for x in operations]
+        counted = Counter(all_categories).most_common(7)
+        categories = [x[0] for x in counted]
+        module_logger.info('Создание топ 7 категорий')
+        for category in categories:
+            amount = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
+                          category and x['payment_amount'] < 0])
+            data = {
+                "category": category,
+                'amount': int(round(amount))
+            }
+            result.append(data)
+        module_logger.info('Подсчёт суммы в категориях')
+        other_amount = sum([abs(x['payment_amount']) for x in operations
+                            if not (x['category'] in categories) and x['payment_amount'] < 0])
+        other = {
+            'category': 'Остальное',
+            'amount': int(round(other_amount))
         }
-        result.append(data)
-
-    other_amount = sum([abs(x['payment_amount']) for x in operations
-                        if not (x['category'] in categories) and x['payment_amount'] < 0])
-    other = {
-        'category': 'Остальное',
-        'amount': int(round(other_amount))
-    }
-    result.append(other)
-
-    return result
+        module_logger.info('Подсчёт категории "Остальное"')
+        result.append(other)
+    except Exception as e:
+        module_logger.error(f'Произошла ошибка: {e}')
+    else:
+        return result
 
 
 def get_translations_and_cash(operations):
     """
     Получение суммы переводов и наличных
     """
-    cash = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
-                'Наличные' and x['payment_amount'] < 0])
-    translations = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
-                        'Переводы' and x['payment_amount'] < 0])
+    try:
+        cash = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
+                    'Наличные' and x['payment_amount'] < 0])
+        module_logger.info('Подсчёт суммы наличных')
 
-    result = [
-        {
-            'category': 'Наличные',
-            'amount': int(round(cash))
-        },
-        {
-            'category': "Переводы",
-            'amount': int(round(translations))
-        }
-    ]
+        translations = sum([abs(x['payment_amount']) for x in operations if x['category'] ==
+                            'Переводы' and x['payment_amount'] < 0])
+        module_logger.info('Подсчёт суммы переводов')
 
-    return result
+        result = [
+            {
+                'category': 'Наличные',
+                'amount': int(round(cash))
+            },
+            {
+                'category': "Переводы",
+                'amount': int(round(translations))
+            }
+        ]
+    except Exception as e:
+        module_logger.error(f'Произошла ошибка: {e}')
+    else:
+        return result
 
 
 def get_income(operations):
     """
     Получение суммы прибыли по категориям
     """
-    total_amount = sum([x['payment_amount'] for x in operations if x['payment_amount'] > 0])
-    descriptions = []
-    result = {
-        'total_amount': int(round(total_amount)),
-        'main': []
-    }
+    try:
+        total_amount = sum([x['payment_amount'] for x in operations if x['payment_amount'] > 0])
+        descriptions = []
+        result = {
+            'total_amount': int(round(total_amount)),
+            'main': []
+        }
+        module_logger.info('Подсчёт всей суммы прибыли')
 
-    for operation in operations:
-        if operation['category'] in descriptions:
-            continue
-        if operation['payment_amount'] > 0:
-            category_sum = sum([x['payment_amount'] for x in operations if x['category'] ==
-                                operation['category'] and x['payment_amount'] > 0])
-            data = {
-                'category': operation['category'],
-                'amount': int(round(category_sum))
-            }
-            result['main'].append(data)
-            descriptions.append(operation['category'])
-    result['main'].sort(key=lambda x: x['amount'], reverse=True)
-
-    return result
+        for operation in operations:
+            if operation['category'] in descriptions:
+                continue
+            if operation['payment_amount'] > 0:
+                category_sum = sum([x['payment_amount'] for x in operations if x['category'] ==
+                                    operation['category'] and x['payment_amount'] > 0])
+                data = {
+                    'category': operation['category'],
+                    'amount': int(round(category_sum))
+                }
+                result['main'].append(data)
+                descriptions.append(operation['category'])
+        result['main'].sort(key=lambda x: x['amount'], reverse=True)
+        module_logger.info('Подсчёт суммы прибыли по категориям')
+    except Exception as e:
+        module_logger.error(f'Произошла ошибка: {e}')
+    else:
+        return result
