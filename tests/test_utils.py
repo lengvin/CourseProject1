@@ -25,3 +25,18 @@ def test_get_cards_info(cards_info):
     operations, result = cards_info
     assert utils.get_cards_info(operations) == result
     assert utils.get_cards_info([]) == []
+
+
+def test_get_main_payments_categories(the_biggest_payments):
+    operations, result = the_biggest_payments
+    assert utils.get_main_payments_categories(operations) == result
+
+
+def test_get_translations_and_cash(translations_and_cash):
+    operations, result = translations_and_cash
+    assert utils.get_translations_and_cash(operations) == result
+
+
+def test_get_income(incomes):
+    operations, result = incomes
+    assert utils.get_income(operations) == result

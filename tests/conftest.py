@@ -115,3 +115,168 @@ def cards_info():
               "cashback": 30.0}]
 
     return operations, cards
+
+
+@pytest.fixture
+def the_biggest_payments():
+    operations = [
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -3000000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Переводы',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -300000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Наличные',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -30000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Билеты Ж/Д',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -3000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Супермаркеты',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -300.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Фастфуд',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -30.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Каршеринг',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -3.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Связь',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -1.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Различные товары',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+    ]
+    result = [
+        {
+            "category": 'Переводы',
+            'amount': 3000000
+        },
+        {
+            "category": 'Наличные',
+            'amount': 300000
+        },
+        {
+            "category": 'Билеты Ж/Д',
+            'amount': 30000
+        },
+        {
+            "category": 'Супермаркеты',
+            'amount': 3000
+        },
+        {
+            "category": 'Фастфуд',
+            'amount': 300
+        },
+        {
+            "category": 'Каршеринг',
+            'amount': 30
+        },
+        {
+            "category": 'Связь',
+            'amount': 3
+        },
+        {
+            "category": 'Остальное',
+            'amount': 1
+        }
+    ]
+
+    return operations, result
+
+
+@pytest.fixture
+def translations_and_cash():
+    operations = [
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -3000000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Переводы',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': -300000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Наличные',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0}
+    ]
+    result = [
+        {
+            'category': 'Наличные',
+            'amount': 300000
+        },
+        {
+            'category': "Переводы",
+            'amount': 3000000
+        }
+    ]
+
+    return operations, result
+
+
+@pytest.fixture
+def incomes():
+    operations = [
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': 3000000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Пополнение',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0},
+        {'operation_date': '01.01.2018 12:49:53', 'payment_date': '01.01.2018',
+         'card_number': None, 'state': 'OK',
+         'operation_amount': -3000.0, 'operation_currency': 'RUB',
+         'payment_amount': 300000.0, 'payment_currency': 'RUB',
+         'cashback': None, 'category': 'Зарплата',
+         'mss': None, 'description': 'Линзомат ТЦ Юность', 'bonuses': 0,
+         'investment_rounding': 0, 'amount_rounding': 3000.0}
+    ]
+    result = {
+        'total_amount': 3300000,
+        'main': [
+            {
+                'category': 'Пополнение',
+                'amount': 3000000
+            },
+            {
+                'category': 'Зарплата',
+                'amount': 300000
+            }
+        ]
+    }
+
+    return operations, result
