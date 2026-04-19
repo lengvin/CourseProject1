@@ -76,3 +76,11 @@ class JSONSaver(BaseJSONSaver):
                 result.append(aeroplane)
 
         return result
+
+    @staticmethod
+    def get_top_by_height(data: list, top: int) -> list:
+        if len(data) >= top:
+            sorted_data = sorted(data, key=lambda x: x["vertical_rate"])
+            return sorted_data[:top]
+        else:
+            raise ValueError("Число элементов в списке меньше запрашеваемого")

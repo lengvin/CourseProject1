@@ -11,18 +11,11 @@ class Aeroplane:
         self.geo_altitude = geo_altitude
         self.__validity_check()
 
-    @staticmethod
-    def cast_to_object_list(data: list) -> list:
+    @classmethod
+    def cast_to_object_list(cls, data: list) -> list:
         result = []
         for obj in data:
-            new_aeroplane = {
-                "country": obj[2],
-                "callsign": obj[1],
-                "velocity": obj[9],
-                "vertical_rate": obj[11],
-                "geo_altitude": obj[13],
-            }
-
+            new_aeroplane = cls(obj[2], obj[1], obj[9], obj[11], obj[13])
             result.append(new_aeroplane)
 
         return result
