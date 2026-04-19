@@ -2,7 +2,6 @@ from src.files_processing import JSONSaver
 from src.aeroplanes_logic import Aeroplane
 import pytest
 import json
-from unittest.mock import patch
 
 
 @pytest.fixture
