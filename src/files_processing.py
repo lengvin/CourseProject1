@@ -25,7 +25,7 @@ class BaseJSONSaver(ABC):
 
 class JSONSaver(BaseJSONSaver):
 
-    def __init__(self, file_path="../data/aeroplanes_data.json"):
+    def __init__(self, file_path="data/aeroplanes_data.json"):
         self.__file_path = file_path
         super().__init__()
 
@@ -47,13 +47,8 @@ class JSONSaver(BaseJSONSaver):
         self.__rewrite_file(json_file)
 
     def get_json_data(self) -> list:
-        try:
-            with open(self.__file_path, encoding="utf-8") as file:
-                json_file = json.load(file)
-        except (FileNotFoundError, TypeError, json.JSONDecodeError, ValueError) as e:
-            print(e)
-            return []
-        else:
+        with open(self.__file_path, encoding="utf-8") as file:
+            json_file = json.load(file)
             return json_file
 
     def del_aeroplane(self, aeroplane: "Aeroplane") -> None:
@@ -68,7 +63,7 @@ class JSONSaver(BaseJSONSaver):
         json_file.remove(aeroplane_dict)
         self.__rewrite_file(json_file)
 
-    def get_by_criteria_from_json(self, criteria: str, value: Union[str, float]) -> list:
+    def get_by_criterion_from_json(self, criteria: str, value: Union[str, float]) -> list:
         json_file = self.get_json_data()
         result = []
         for aeroplane in json_file:
@@ -80,7 +75,16 @@ class JSONSaver(BaseJSONSaver):
     @staticmethod
     def get_top_by_height(data: list, top: int) -> list:
         if len(data) >= top:
+            for aeroplane in data:
+                if aeroplane['vertical_rate'] is None:
+                    aeroplane['vertical_rate'] = -1000000
+
             sorted_data = sorted(data, key=lambda x: x["vertical_rate"])
+
+            for aeroplane in sorted_data:
+                if aeroplane['vertical_rate'] == -1000000:
+                    aeroplane['vertical_rate'] = None
+
             return sorted_data[:top]
         else:
             raise ValueError("Число элементов в списке меньше запрашеваемого")

@@ -1,3 +1,6 @@
+from typing import Union
+
+
 class Aeroplane:
     __slots__ = ("country", "callsign", "velocity", "vertical_rate", "geo_altitude")
 
@@ -14,8 +17,8 @@ class Aeroplane:
     @classmethod
     def cast_to_object_list(cls, data: list) -> list:
         result = []
-        for obj in data:
-            new_aeroplane = cls(obj[2], obj[1], obj[9], obj[11], obj[13])
+        for raw_list in data:
+            new_aeroplane = cls(raw_list[2], raw_list[1], raw_list[9], raw_list[11], raw_list[13])
             result.append(new_aeroplane)
 
         return result
@@ -39,9 +42,9 @@ class Aeroplane:
         if (
             isinstance(self.country, str)
             and isinstance(self.callsign, str)
-            and isinstance(self.velocity, float)
-            and isinstance(self.vertical_rate, float)
-            and isinstance(self.geo_altitude, float)
+            and isinstance(self.velocity, Union[float, int, None])
+            and isinstance(self.vertical_rate, Union[float, int, None])
+            and isinstance(self.geo_altitude, Union[float, int, None])
         ):
             pass
         else:
