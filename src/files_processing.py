@@ -76,14 +76,14 @@ class JSONSaver(BaseJSONSaver):
     def get_top_by_height(data: list, top: int) -> list:
         if len(data) >= top:
             for aeroplane in data:
-                if aeroplane['vertical_rate'] is None:
-                    aeroplane['vertical_rate'] = -1000000
+                if aeroplane["vertical_rate"] is None:
+                    aeroplane["vertical_rate"] = -1000000
 
             sorted_data = sorted(data, key=lambda x: x["vertical_rate"])
 
             for aeroplane in sorted_data:
-                if aeroplane['vertical_rate'] == -1000000:
-                    aeroplane['vertical_rate'] = None
+                if aeroplane["vertical_rate"] == -1000000:
+                    aeroplane["vertical_rate"] = None
 
             return sorted_data[:top]
         else:
